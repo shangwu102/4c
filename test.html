@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+  </div>
+  <script>
+    // 创建子子组件1
+    const myComponentBase11 = {
+      template: `
+        <div>
+          <h4>{{msg}}</h4>
+        </div>
+      `,
+      data () {
+        return {
+          msg: '子子组件1'
+        }
+      }
+    }
+    // 创建子子组件2
+    const myComponentBase22 = {
+      template: `
+        <div>
+          <h4>{{msg}}</h4>
+        </div>
+      `,
+      data () {
+        return {
+          msg: '子子组件2'
+        }
+      }
+    }
+    // 创建子组件1
+    const myComponentBase1 = {
+      template: `
+        <div>
+          <h3>{{msg}}</h3>
+          <my-component-base11></my-component-base11>
+        </div>
+      `,
+      data () {
+        return {
+          msg: '子组件1'
+        }
+      },
+      components: {
+        myComponentBase11
+      }
+    }
+    // 创建子组件1
+    const myComponentBase2 = {
+      template: `
+        <div>
+          <h3>{{msg}}</h3>
+          <my-component-base22></my-component-base22>
+        </div>
+      `,
+      data () {
+        return {
+          msg: '子组件2'
+        }
+      },
+      components: {
+        myComponentBase22
+      }
+    }
+    // 创建组件1
+    const myComponent1 = {
+      template: `
+        <div>
+          <h2>{{msg}}</h2> 
+          <my-component-base1></my-component-base1>
+          <my-component-base2></my-component-base2>
+        </div>
+      `,
+      data () {
+        return {
+          msg: '组件1'
+        }
+      },
+      components: {
+        myComponentBase1,
+        myComponentBase2
+      }
+    }
+    // Vue实例
+    new Vue({
+      el: '#app',
+      template: `
+        <div>
+          <h1>{{msg}}</h1>
+          <my-component1></my-component1>
+        
+        </div>
+        
+      `,
+      data () {
+        return {
+          msg: 'Vue实例'
+        }
+      },
+      components: {
+        myComponent1
+      }
+    })
+
+
+
+
+  </script>
+</body>
+
+</html>
