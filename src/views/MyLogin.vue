@@ -1,31 +1,31 @@
 <template>
   <div class="login-container">
-    <el-form @submit.prevent="onSubmit" label-width="160px" :model="user">
+    <el-form @submit.prevent="onSubmit" label-width="160px">
       <h2>欢迎回来</h2>
       <div class="form-group">
         <el-form-item label="用户名：">
           <el-col :span="20">
-            <el-input placeholder="请输入账号" prefix-icon="el-icon-user-solid" v-model="user.account" ref="input"
+            <el-input placeholder="请输入账号" prefix-icon="el-icon-user-solid" v-model="account" ref="input"
               hide-required-asterisk></el-input>
           </el-col>
         </el-form-item>
         <el-form-item label="密码：">
           <el-col :span="20">
-            <el-input placeholder="请输入密码" prefix-icon="el-icon-s-goods" v-model="user.password" show-password
+            <el-input placeholder="请输入密码" prefix-icon="el-icon-s-goods" v-model="password" show-password
               hide-required-asterisk="true"></el-input>
           </el-col>
         </el-form-item>
         <el-form-item label="角色:">
-          <el-radio v-model="user.type" label="1">医生</el-radio>
-          <el-radio v-model="user.type" label="2">用户</el-radio>
+          <el-radio v-model="type" label="1">医生</el-radio>
+          <el-radio v-model="type" label="2">用户</el-radio>
         </el-form-item>
-        <el-form-item label="执业资格证书编号：" v-show="user.type === '1'">
+        <el-form-item label="执业资格证书编号：" v-show="type === '1'">
           <el-col :span="20">
             <el-input placeholder="请输入执业资格证书编号" prefix-icon="el-icon-s-goods" v-model="doctor.certificateNumber
 "></el-input>
           </el-col>
         </el-form-item>
-        <el-form-item label="手机号码：" v-show="user.type === '2'">
+        <el-form-item label="手机号码：" v-show="type === '2'">
           <el-col :span="20">
             <el-input placeholder="请输入手机号码" prefix-icon="el-icon-s-goods" v-model="user.phoneNumber"></el-input>
           </el-col>
@@ -42,22 +42,20 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from '@/utils/request'
+import { setToken } from '@/utils/localStorage'
 export default {
   data () {
     return {
+      account: "",
+      password: "",
       user: {
-        account: "",
-        password: "",
-        type: "2",
-        phoneNumber:''
+        phoneNumber: ''
       },
       doctor: {
-        account: "",
-        password: "",
-        type: "",
         certificateNumber: ''
       },
+      type: "2" // 用户类型
     };
   },
   mounted () {
@@ -67,21 +65,35 @@ export default {
   },
   methods: {
     async login () {
-      if (this.user.type === '1') {
-        this.doctor.account = this.user.account
-        this.doctor.password = this.user.password
-        await axios({
+      if (this.type === '1') {
+        const result = await axios({
           method: 'post',
-          url: 'http://localhost:8080/login/doctor',
-          data: this.doctor
+          url: '/login/doctor',
+          data: {
+            account: this.account,
+            certificateNumber: this.doctor.certificateNumber,
+            password: this.password,
+            type: this.type
+          }
         })
+        // 保存token到本地
+        setToken(result.data)
         this.$router.push('/doctor')
-      } else if (this.user.type === '2') {
-        await axios({
+      } else if (this.type === '2') {
+        console.log(7777);
+        const result = await axios({
           method: 'post',
-          url: 'http://localhost:8080/login/user',
-          data: this.user
+          url: '/login/user',
+          data: {
+            account: this.account,
+            phoneNumber: this.user.phoneNumber,
+            password: this.password,
+            type: this.type
+          }
         })
+        console.log(result);
+        // 保存token到本地
+        setToken(result.data)
         this.$router.push('/user')
       }
     },
@@ -94,7 +106,7 @@ export default {
   background-color: rgba(255, 255, 255, 0.5);
   width: 600px;
   height: 430px;
-  margin: 50px auto;
+  margin: 10px auto;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
