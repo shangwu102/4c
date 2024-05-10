@@ -30,7 +30,7 @@ instance.interceptors.response.use(function(response) {
       type:'error',
       message: result.msg
     })
-    return result
+    return Promise.reject(result)
   }
   // 2xx 范围内的状态码都会触发该函数。
   // 对响应数据做点什么
