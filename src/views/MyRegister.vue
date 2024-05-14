@@ -78,7 +78,7 @@ export default {
             }
           });
           this.$message({
-            message: '恭喜你，医生账户注册成功',
+            message: '医生账户注册成功',
             type: 'success'
           })
           // 保存token到本地
@@ -96,7 +96,7 @@ export default {
             }
           });
           this.$message({
-            message: '恭喜你，用户账户注册成功',
+            message: '用户账户注册成功',
             type: 'success'
           });
           // 保存token到本地

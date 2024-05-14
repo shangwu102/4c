@@ -83,6 +83,10 @@ export default {
         // 保存到Vuex
         this.saveToken(result.data)
         this.$router.push('/doctor')
+        this.$message({
+          message: '登陆成功',
+          type: 'success'
+        });
       } else if (this.type === '2') {
         const result = await axios({
           method: 'post',
@@ -100,6 +104,10 @@ export default {
         // 保存到Vuex
         this.saveToken(result.data)
         this.$router.push('/user')
+        this.$message({
+          message: '登陆成功',
+          type: 'success'
+        });
       }
     },
   },

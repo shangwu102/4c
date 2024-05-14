@@ -20,7 +20,7 @@
 export default {
   data () {
     return {
-      welcomeText: '欢迎来到链上接种证平台'.split(''),
+      welcomeText: '欢迎来到链上接种证平台 疫苗是世界上保护儿童免受致命疾病威胁的最安全方式。'.split(''),
     };
   },
   mounted () {
