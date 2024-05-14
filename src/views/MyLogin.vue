@@ -44,6 +44,7 @@
 <script>
 import axios from '@/utils/request'
 import { setToken } from '@/utils/localStorage'
+import {mapMutations} from 'vuex'
 export default {
   data () {
     return {
@@ -64,6 +65,7 @@ export default {
     });
   },
   methods: {
+    ...mapMutations('user',['saveToken']),
     async login () {
       if (this.type === '1') {
         const result = await axios({
@@ -78,9 +80,10 @@ export default {
         })
         // 保存token到本地
         setToken(result.data)
+        // 保存到Vuex
+        this.saveToken(result.data)
         this.$router.push('/doctor')
       } else if (this.type === '2') {
-        console.log(7777);
         const result = await axios({
           method: 'post',
           url: '/login/user',
@@ -94,10 +97,14 @@ export default {
         console.log(result);
         // 保存token到本地
         setToken(result.data)
+        // 保存到Vuex
+        this.saveToken(result.data)
         this.$router.push('/user')
       }
     },
   },
+  computed:{
+  }
 };
 </script>
 
