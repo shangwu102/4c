@@ -2,43 +2,37 @@
   <div>
     <el-container>
       <el-header>
-        <h2 style="font-size: 40px; background-color: aqua;">医生管理系统</h2>
-        <!-- <el-button @click="logout">退出</el-button> -->
+        <div style="display: flex;">
+          <h2 style="font-size: 40px; background-color: aqua;  width: 100%;">医生管理系统</h2>
+          <el-button @click="logout">退出</el-button>
+        </div>
+
       </el-header>
       <el-container>
-        <el-aside width="200px">
+        <el-aside width="400px">
           <el-menu class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse"
-            style="height: 93.5vh;">
+            style="height: 91vh;">
             <el-menu-item index="1" @click="showHome">
               <template slot="title">
                 <i class="el-icon-location"></i>
-                <span slot="title">首页</span>
+                <span slot="title" style="font-size: 24px; ">首页</span>
               </template>
             </el-menu-item>
             <el-submenu index="2">
               <template slot="title">
                 <i class="el-icon-location"></i>
-                <span slot="title">导航一</span>
+                <span slot="title" style="font-size: 24px; ">接种信息管理</span>
               </template>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
-              <el-menu-item index="1-3">选项3</el-menu-item>
-              <el-menu-item index="1-4-1">选项1</el-menu-item>
+              <el-menu-item index="optionOne" @click="showOption('option1')"><span
+                  style="font-size: 18px; ">信息查看</span></el-menu-item>
+              <el-menu-item index="optionTwo" @click="showOption('option2')"><span
+                  style="font-size: 18px; ">信息上链</span></el-menu-item>
             </el-submenu>
-            <el-menu-item index="3">
-              <i class="el-icon-document"></i>
-              <span slot="title">导航三</span>
-            </el-menu-item>
-            <el-menu-item index="4">
-              <i class="el-icon-setting"></i>
-              <span slot="title">导航四</span>
-            </el-menu-item>
           </el-menu>
         </el-aside>
         <el-container>
           <el-main>
-            <img v-if="currentView === 'home'" src="../assets/welcome.png" alt="Home Image" width="100%" height="99%" />
-            <div v-else>Other Content</div>
+            <router-view></router-view>
           </el-main>
         </el-container>
       </el-container>
@@ -46,13 +40,14 @@
   </div>
 </template>
 
+
 <script>
 import { delToken } from '@/utils/localStorage'
+
 export default {
   data () {
     return {
       isCollapse: false,
-      currentView: 'home' // 默认显示首页内容
     };
   },
   methods: {
@@ -63,22 +58,27 @@ export default {
       console.log(key, keyPath);
     },
     showHome () {
-      this.currentView = 'home';
+      if (this.$route.path !== '/welcome') {
+        this.$router.push('/welcome');
+      }
+    },
+    showOption (option) {
+      const path = `/${option}`;
+      if (this.$route.path !== path) {
+        this.$router.push(path);
+      }
     },
     uploadMsg () {
 
     },
     logout () {
-      delToken()
-      this.$router.push('/home')
-    }
-  }
-}
+      delToken();
+      this.$router.push('/home'); // 修改退出后跳转的路径为登录页
+    },
+  },
+};
 </script>
 
+
 <style>
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  min-height: 400px;
-}
 </style>
