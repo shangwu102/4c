@@ -1,99 +1,84 @@
 <template>
   <div>
-    医生
-    <el-button @click="clear">退出</el-button>
-    <!-- Form -->
-    <el-button @click="dialogFormVisible = true">点击上传儿童接种信息</el-button>
-    <el-dialog title="儿童接种信息" :visible.sync="dialogFormVisible">
-      <el-form :model="vaccinum">
-        <el-form-item label="儿童姓名" :label-width="formLabelWidth">
-          <el-input v-model="vaccinum.name"></el-input>
-        </el-form-item>
-        <el-form-item label="儿童身份证" :label-width="formLabelWidth">
-          <el-input v-model="vaccinum.number"></el-input>
-        </el-form-item>
-        <el-form-item label="疫苗名称" :label-width="formLabelWidth">
-          <el-select v-model="vaccinum.region" placeholder="请选择疫苗名称">
-            <el-option label="乙肝疫苗" value="value1"></el-option>
-            <el-option label="卡介苗" value="value2"></el-option>
-            <el-option label="脊灰疫苗" value="value3"></el-option>
-            <el-option label="百白破疫苗" value="value4"></el-option>
-            <el-option label="白破疫苗" value="value5"></el-option>
-            <el-option label="麻风(麻疹)疫苗" value="value6"></el-option>
-            <el-option label="麻腮风(麻腮、麻疹)疫苗" value="value7"></el-option>
-            <el-option label="乙脑减毒活疫苗" value="value8"></el-option>
-            <el-option label="A群流脑疫苗" value="value9"></el-option>
-            <el-option label="A+C群流脑疫苗" value="value10"></el-option>
-            <el-option label="甲肝减毒活疫苗" value="value11"></el-option>
-          </el-select>
-        </el-form-item>
-
-        <el-form-item label="接种日期" :label-width="formLabelWidth">
-          <el-input v-model="vaccinum.time"></el-input>
-        </el-form-item>
-        <el-form-item label="疫苗批号" :label-width="formLabelWidth">
-          <el-input v-model="vaccinum.batchNumber"></el-input>
-        </el-form-item>
-        <el-form-item label="生产企业" :label-width="formLabelWidth">
-          <el-input v-model="vaccinum.produce"></el-input>
-        </el-form-item>
-        <el-form-item label="接种部位" :label-width="formLabelWidth">
-          <el-input v-model="vaccinum.position"></el-input>
-        </el-form-item>
-        <el-form-item label="接种单位" :label-width="formLabelWidth">
-          <el-input v-model="vaccinum.unit"></el-input>
-        </el-form-item>
-
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-      </div>
-    </el-dialog>
+    <el-container>
+      <el-header>
+        <h2 style="font-size: 40px; background-color: aqua;">医生管理系统</h2>
+        <!-- <el-button @click="logout">退出</el-button> -->
+      </el-header>
+      <el-container>
+        <el-aside width="200px">
+          <el-menu class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse"
+            style="height: 93.5vh;">
+            <el-menu-item index="1" @click="showHome">
+              <template slot="title">
+                <i class="el-icon-location"></i>
+                <span slot="title">首页</span>
+              </template>
+            </el-menu-item>
+            <el-submenu index="2">
+              <template slot="title">
+                <i class="el-icon-location"></i>
+                <span slot="title">导航一</span>
+              </template>
+              <el-menu-item index="1-1">选项1</el-menu-item>
+              <el-menu-item index="1-2">选项2</el-menu-item>
+              <el-menu-item index="1-3">选项3</el-menu-item>
+              <el-menu-item index="1-4-1">选项1</el-menu-item>
+            </el-submenu>
+            <el-menu-item index="3">
+              <i class="el-icon-document"></i>
+              <span slot="title">导航三</span>
+            </el-menu-item>
+            <el-menu-item index="4">
+              <i class="el-icon-setting"></i>
+              <span slot="title">导航四</span>
+            </el-menu-item>
+          </el-menu>
+        </el-aside>
+        <el-container>
+          <el-main>
+            <img v-if="currentView === 'home'" src="../assets/welcome.png" alt="Home Image" width="100%" height="99%" />
+            <div v-else>Other Content</div>
+          </el-main>
+        </el-container>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <script>
-import {delToken} from '@/utils/localStorage'
+import { delToken } from '@/utils/localStorage'
 export default {
-  data() {
+  data () {
     return {
-      dialogFormVisible: false,
-      vaccinum: {
-        produce:'',
-        name: '',
-        name1: '',
-        number:'',
-        position:'',
-        time:'',
-        unit:'',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      },
-      formLabelWidth: '120px'
-    }
+      isCollapse: false,
+      currentView: 'home' // 默认显示首页内容
+    };
   },
-  methods:{
-    uploadMsg() {
+  methods: {
+    handleOpen (key, keyPath) {
+      console.log(key, keyPath);
+    },
+    handleClose (key, keyPath) {
+      console.log(key, keyPath);
+    },
+    showHome () {
+      this.currentView = 'home';
+    },
+    uploadMsg () {
 
     },
-    clear() {
+    logout () {
       delToken()
       this.$router.push('/home')
     }
   }
 }
-
-
 </script>
 
 <style>
-
-
-
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
+}
 </style>

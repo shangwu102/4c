@@ -1,140 +1,91 @@
 <template>
-  <div class="login-container">
-    <el-form @submit.prevent="onSubmit" label-width="100px" :model="user">
-      <h2>欢迎回来</h2>
-      <div class="form-group">
-        <el-form-item label="用户名：">
-          <el-col :span="20">
-            <el-input placeholder="请输入账号" prefix-icon="el-icon-user-solid" ref="input"
-              v-model="user.account"></el-input>
-          </el-col>
+  <div>
+    医生
+    <el-button @click="logout">退出</el-button>
+    <!-- Form -->
+    <el-button @click="dialogFormVisible = true">点击上传儿童接种信息</el-button>
+    <el-dialog title="儿童接种信息" :visible.sync="dialogFormVisible" width="40%">
+      <el-form :model="vaccinumMsg">
+        <el-form-item label="儿童姓名" :label-width="formLabelWidth">
+          <el-input v-model="vaccinumMsg.childrenName"></el-input>
         </el-form-item>
-        <el-form-item label="密码：">
-          <el-col :span="20">
-            <el-input placeholder="请输入密码" prefix-icon="el-icon-s-goods" v-model="user.password"
-              show-password></el-input>
-          </el-col>
+        <el-form-item label="儿童身份证" :label-width="formLabelWidth">
+          <el-input v-model="vaccinumMsg.number"></el-input>
         </el-form-item>
-        <el-form-item label="角色:">
-          <el-radio v-model="user.type" label="1">医生</el-radio>
-          <el-radio v-model="user.type" label="2">用户</el-radio>
+        <el-form-item label="疫苗名称" :label-width="formLabelWidth">
+          <el-select v-model="vaccinumMsg.name" placeholder="请选择疫苗名称">
+            <el-option label="乙肝疫苗" value="name1"></el-option>
+            <el-option label="卡介苗" value="name2"></el-option>
+            <el-option label="脊灰疫苗" value="name3"></el-option>
+            <el-option label="百白破疫苗" value="name4"></el-option>
+            <el-option label="白破疫苗" value="name5"></el-option>
+            <el-option label="麻风(麻疹)疫苗" value="name6"></el-option>
+            <el-option label="麻腮风(麻腮、麻疹)疫苗" value="name7"></el-option>
+            <el-option label="乙脑减毒活疫苗" value="name8"></el-option>
+            <el-option label="A群流脑疫苗" value="name9"></el-option>
+            <el-option label="A+C群流脑疫苗" value="name10"></el-option>
+            <el-option label="甲肝减毒活疫苗" value="name11"></el-option>
+          </el-select>
         </el-form-item>
-      </div>
+        <el-form-item label="接种日期" :label-width="formLabelWidth">
+          <el-date-picker v-model="vaccinumMsg.time" type="date" placeholder="选择日期">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="疫苗批号" :label-width="formLabelWidth">
+          <el-input v-model="vaccinumMsg.batchNumber"></el-input>
+        </el-form-item>
+        <el-form-item label="生产企业" :label-width="formLabelWidth">
+          <el-input v-model="vaccinumMsg.produce"></el-input>
+        </el-form-item>
+        <el-form-item label="接种部位" :label-width="formLabelWidth">
+          <el-select v-model="vaccinumMsg.position" placeholder="请选择接种部位">
+            <el-option label="左上臂" value="position1"></el-option>
+            <el-option label="右上臂" value="position2"></el-option>
+            <el-option label="口服" value="position3"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="接种单位" :label-width="formLabelWidth">
+          <el-input v-model="vaccinumMsg.unit"></el-input>
+        </el-form-item>
 
-      <div class="forget">
-        没有帐户?
-        <router-link to="/register">注册</router-link>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
       </div>
-      <button type="button" @click="login">登录</button>
-    </el-form>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import { delToken } from '@/utils/localStorage'
 export default {
-  name:'MyBase',
   data () {
     return {
-      user: {
-        account: '',
-        password: '',
-        type: ''
+      dialogFormVisible: false,
+      vaccinumMsg: {
+        produce: '', // 生产企业
+        childrenName: '', // 儿童姓名
+        name: '', // 接种名称
+        number: '', // 身份找
+        position: '', // 接种部位
+        time: '', // 接种日期
+        unit: '',// 接种单位
+        batchNumber:'' // 疫苗批号
       },
-    };
-  },
-  mounted () {
-    this.$nextTick(() => { this.$refs.input.focus() })
+      formLabelWidth: '100px'
+    }
   },
   methods: {
-    async login () {
-      console.log("登录信息：", this.user);
-      const result = await axios({
-        method: 'post',
-        url: 'http://localhost:8080/user/login',
-        data: this.user
-      })
-      console.log(result);
-      if (this.user.type === '1') {
-        this.$router.push('/dockor')
-      } else if (this.user.type === '2') {
-        console.log(666);
-        this.$router.push('/user')
-      }
+    uploadMsg () {
 
     },
-  },
-};
+    logout () {
+      delToken()
+      this.$router.push('/home')
+    }
+  }
+}
 </script>
 
-<style scoped>
-.login-container {
-  background-color: aliceblue;
-  width: 600px;
-  height: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 16px;
-}
-
-h2 {
-  text-align: center;
-  color: #333;
-}
-
-.form-group {
-  margin-bottom: 20px;
-  position: relative;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-button[type=button] {
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  background-color: #3498db;
-  color: white;
-  cursor: pointer;
-  margin-top: 5px;
-  width: 80%;
-  margin-left: 10%;
-}
-
-button[type=button]:hover {
-  background-color: #2980b9;
-}
-
-.forget {
-  position: relative;
-  left: 67%;
-  width: 150px;
-  height: 40px;
-  text-align: right;
-  /* background-color: #3498db; */
-}
-
-.forget a {
-  text-decoration: none;
-  color: #72b4e0;
-}
-
-.form-group {
-  margin-top: 7%;
-  margin-left: 10%;
-  margin-bottom: 0;
-}
-
-::v-deep .el-form-item__label {
-  font-size: 16px;
-}
-</style>
+<style></style>
