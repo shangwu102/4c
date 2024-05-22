@@ -3,10 +3,10 @@
     <el-form @submit.prevent="onSubmit" label-width="160px">
       <h2>注册账户</h2>
       <div class="form-group">
-        <el-form-item label="用户名：">
+        <el-form-item :label="type === '1' ? '姓名：' : '用户名：'">
           <el-col :span="20">
-            <el-input placeholder="请输入用户名" prefix-icon="el-icon-user-solid" v-model="account" ref="input"
-              hide-required-asterisk></el-input>
+            <el-input :placeholder="type === '1' ? '请输入您的姓名' : '请输入用户名'" prefix-icon="el-icon-user-solid"
+              v-model="account" ref="input" hide-required-asterisk></el-input>
           </el-col>
         </el-form-item>
         <el-form-item label="密码：">
@@ -27,15 +27,14 @@
         </el-form-item>
         <el-form-item label="手机号码：" v-show="type === '2'">
           <el-col :span="20">
-            <el-input placeholder="请输入手机号码" prefix-icon="el-icon-s-goods" 
-            v-model="user.phoneNumber"></el-input>
+            <el-input placeholder="请输入手机号码" prefix-icon="el-icon-s-goods" v-model="user.phoneNumber"></el-input>
           </el-col>
         </el-form-item>
       </div>
 
       <div class="forget">
         已有帐户?
-        <router-link to="/login" style="color: aqua;">登录</router-link>
+        <router-link to="/login">登录</router-link>
       </div>
       <button type="button" @click="register">注册</button>
     </el-form>

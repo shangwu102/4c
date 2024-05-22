@@ -3,7 +3,7 @@ const state = {
 }
 const mutations = {
   // 保存token
-  saveToken(state,token) {
+  saveTokenUser(state,token) {
     state.usetToken = token
   }
 }
@@ -11,7 +11,7 @@ const actions = {
 
 }
 const getters = {
-
+  
 }
 export default {
   namespaced:true,

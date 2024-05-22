@@ -7,11 +7,18 @@ import Register from '@/views/MyRegister.vue'
 import Doctor from '@/views/RoleDoctor.vue'
 import User from '@/views/RoleUser.vue'
 import OptionOne from '@/views/OptionOne.vue'
-import OptionTwo from '@/views/OptionTwo.vue'
-import OptionThree from '@/views/OptionThree.vue'
-import OptionFour from '@/views/OptionFour.vue'
-import Welcome from '@/views/MyWelcome.vue'
+import commit from '@/views/DoctorComit.vue'
+import Welcome1 from '@/views/MyWelcomeDoctor.vue'
+import Welcome2 from '@/views/MyWelcomeUser.vue'
+import query from '@/views/UserQuery.vue'
+import PersonalDoctor from '@/views/PersonalCenterDoctor' // 医生个人中心
+import PersonalCenterUser from '@/views/PersonalCenterUser' // 用户个人中心
+import ReservationDoctor from '@/views/ReservationDoctor.vue' // 查看预约页面
+import ReservationUser from '@/views/ReservationUser.vue' // 申请预约页面
+import InventoryPage from '@/views/InventoryPage.vue'
+
 import { getToken } from '@/utils/localStorage'
+
 
 Vue.use(VueRouter)
 
@@ -20,19 +27,30 @@ const routes = [
   { path: '/home', component: Home },
   { path: '/login', component: Login },
   { path: '/register', component: Register },
-  { 
-    path: '/doctor', 
+  {
+    path: '/doctor',
     component: Doctor,
     children: [
-      { path: '/welcome', component: Welcome },
-      { path: '/option1', component: OptionOne },
-      { path: '/option2', component: OptionTwo },
-      { path: '/option3', component: OptionThree },
-      { path: '/option4', component: OptionFour },
+      { path: '/doctor/welcome', component: Welcome1 },
+      { path: '/doctor/query', component: query },
+      { path: '/doctor/personal', component: PersonalDoctor },
+      { path: '/doctor/commit', component: commit },
+      { path: '/doctor/reservation', component: ReservationDoctor },
+      { path: '/doctor/inventory', component: InventoryPage }
     ]
   },
-  { path: '/user', component: User },
-  {path: '/home',component: Home,},
+  {
+    path: '/user',
+    component: User,
+    children: [
+      { path: '/user/welcome', component: Welcome2 },
+      { path: '/user/option11', component: OptionOne },
+      { path: '/user/query', component: query },
+      { path: '/user/reservation', component: ReservationUser },
+      { path: '/user/personal', component: PersonalCenterUser }
+    ]
+  },
+  { path: '/home', component: Home, },
   { path: '*', component: NotFund }
 ]
 

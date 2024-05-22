@@ -3,10 +3,10 @@
     <el-form @submit.prevent="onSubmit" label-width="160px">
       <h2>欢迎回来</h2>
       <div class="form-group">
-        <el-form-item label="用户名：">
+        <el-form-item :label="type === '1' ? '姓名：' : '用户名：'">
           <el-col :span="20">
-            <el-input placeholder="请输入账号" prefix-icon="el-icon-user-solid" v-model="account" ref="input"
-              hide-required-asterisk></el-input>
+            <el-input :placeholder="type === '1' ? '请输入您的姓名' : '请输入用户名'" prefix-icon="el-icon-user-solid"
+              v-model="account" ref="input" hide-required-asterisk></el-input>
           </el-col>
         </el-form-item>
         <el-form-item label="密码：">
@@ -36,7 +36,7 @@
         没有帐户?
         <router-link to="/register">注册</router-link>
       </div>
-      <button type="button" @click="login" >登录</button>
+      <button type="button" @click="login">登录</button>
     </el-form>
   </div>
 </template>
@@ -65,7 +65,8 @@ export default {
     });
   },
   methods: {
-    ...mapMutations('user',['saveToken']),
+    ...mapMutations('user', ['saveTokenUser']),
+    ...mapMutations('doctor', ['saveTokenDoctor', 'saveNameDoctor','saveCertificateNumber']),
     async login () {
       if (this.type === '1') {
         const result = await axios({
@@ -78,11 +79,16 @@ export default {
             type: this.type
           }
         })
+        console.log(result);
         // 保存token到本地
         setToken(result.data)
-        // 保存到Vuex
-        this.saveToken(result.data)
-        this.$router.push('/doctor')
+        // 保存token到Vuex
+        this.saveTokenDoctor(result.data)
+        // 保存医生姓名到Vuex
+        this.saveNameDoctor(this.account)
+        // 保存医生执业资格证书到Vuex
+        this.saveCertificateNumber(this.doctor.certificateNumber)
+        this.$router.push('/doctor/welcome')
         this.$message({
           message: '登陆成功',
           type: 'success'
@@ -102,7 +108,7 @@ export default {
         // 保存token到本地
         setToken(result.data)
         // 保存到Vuex
-        this.saveToken(result.data)
+        this.saveTokenUser(result.data)
         this.$router.push('/user')
         this.$message({
           message: '登陆成功',
