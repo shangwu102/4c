@@ -2,7 +2,7 @@
   <div>
     <el-container>
       <el-main>
-        <el-table :data="vaccines" style="width: 100%; height: 82vh;">
+        <el-table :data="vaccines" style="width: 100%;" border max-height="580">
           <el-table-column prop="name" label="疫苗名称"></el-table-column>
           <el-table-column prop="stock" label="库存量"></el-table-column>
           <el-table-column label="操作">

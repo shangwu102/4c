@@ -1,22 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/views/LoginPage.vue'
-import Login from '@/views/MyLogin.vue'
-import NotFund from '@/views/NotFund.vue'
-import Register from '@/views/MyRegister.vue'
-import Doctor from '@/views/RoleDoctor.vue'
-import User from '@/views/RoleUser.vue'
-import OptionOne from '@/views/OptionOne.vue'
-import commit from '@/views/DoctorComit.vue'
-import Welcome1 from '@/views/MyWelcomeDoctor.vue'
-import Welcome2 from '@/views/MyWelcomeUser.vue'
-import query from '@/views/UserQuery.vue'
+import Home from '@/views/MyLayout.vue' // 首页
+import Test from '@/views/MyTest.vue' // 首页
+import Login from '@/views/MyLogin.vue' // 登录页面
+import NotFund from '@/views/NotFund.vue' // 不存在提示页面
+import Register from '@/views/MyRegister.vue' // 注册页面
+import Doctor from '@/views/RoleDoctor.vue' // 医生主界面
+import User from '@/views/RoleUser.vue' // 用户主界面
+import OptionOne from '@/views/OptionOne.vue' // 儿童接种时间页面
+import commit from '@/views/DoctorComit.vue' // 医生上链信息页面
+import Welcome1 from '@/views/MyWelcomeDoctor.vue' // 医生欢迎页面
+import Welcome2 from '@/views/MyWelcomeUser.vue' // 用户欢迎页面
+import query from '@/views/UserQuery.vue' // 用户查询页面
 import PersonalDoctor from '@/views/PersonalCenterDoctor' // 医生个人中心
 import PersonalCenterUser from '@/views/PersonalCenterUser' // 用户个人中心
-import ReservationDoctor from '@/views/ReservationDoctor.vue' // 查看预约页面
+import ReservationDoctor from '@/views/ReservationDoctor.vue' // 处理预约页面
 import ReservationUser from '@/views/ReservationUser.vue' // 申请预约页面
-import InventoryPage from '@/views/InventoryPage.vue'
-
+import InventoryPage from '@/views/InventoryPage.vue' // 疫苗库存页面
+import AppointmentVaccines from '@/views/AppointmentVaccines.vue' // 用户预约页面
+import ProcessingAppointments from '@/views/ProcessingAppointments.vue' // 查看预约页面
 import { getToken } from '@/utils/localStorage'
 
 
@@ -27,6 +29,7 @@ const routes = [
   { path: '/home', component: Home },
   { path: '/login', component: Login },
   { path: '/register', component: Register },
+  { path: '/test', component: Test },
   {
     path: '/doctor',
     component: Doctor,
@@ -36,7 +39,8 @@ const routes = [
       { path: '/doctor/personal', component: PersonalDoctor },
       { path: '/doctor/commit', component: commit },
       { path: '/doctor/reservation', component: ReservationDoctor },
-      { path: '/doctor/inventory', component: InventoryPage }
+      { path: '/doctor/inventory', component: InventoryPage },
+      { path: '/doctor/processing', component: ProcessingAppointments },
     ]
   },
   {
@@ -47,7 +51,8 @@ const routes = [
       { path: '/user/option11', component: OptionOne },
       { path: '/user/query', component: query },
       { path: '/user/reservation', component: ReservationUser },
-      { path: '/user/personal', component: PersonalCenterUser }
+      { path: '/user/personal', component: PersonalCenterUser },
+      { path: '/user/view', component: AppointmentVaccines },
     ]
   },
   { path: '/home', component: Home, },

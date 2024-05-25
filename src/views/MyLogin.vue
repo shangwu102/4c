@@ -21,13 +21,18 @@
         </el-form-item>
         <el-form-item label="执业资格证书编号：" v-show="type === '1'">
           <el-col :span="20">
-            <el-input placeholder="请输入执业资格证书编号" prefix-icon="el-icon-s-goods" v-model="doctor.certificateNumber
-"></el-input>
+            <!-- <el-input placeholder="请输入执业资格证书编号" prefix-icon="el-icon-s-goods" v-model="doctor.certificateNumber" ></el-input>
+            <svg-icon class="icon" iconClass="certificate"></svg-icon> -->
+            <el-input placeholder="请输入执业资格证书编号" v-model="doctor.certificateNumber">
+              <template slot="prefix">
+                <svg-icon class="el-input__icon" iconClass="certificate" style="width: 14px; height: 13.6px; margin-left: 5px;"></svg-icon>
+              </template>
+            </el-input>
           </el-col>
         </el-form-item>
         <el-form-item label="手机号码：" v-show="type === '2'">
           <el-col :span="20">
-            <el-input placeholder="请输入手机号码" prefix-icon="el-icon-s-goods" v-model="user.phoneNumber"></el-input>
+            <el-input placeholder="请输入手机号码" prefix-icon="el-icon-phone" v-model="user.phoneNumber"></el-input>
           </el-col>
         </el-form-item>
       </div>
@@ -44,7 +49,7 @@
 <script>
 import axios from '@/utils/request'
 import { setToken } from '@/utils/localStorage'
-import {mapMutations} from 'vuex'
+import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -65,8 +70,8 @@ export default {
     });
   },
   methods: {
-    ...mapMutations('user', ['saveTokenUser']),
-    ...mapMutations('doctor', ['saveTokenDoctor', 'saveNameDoctor','saveCertificateNumber']),
+    ...mapMutations('user', ['saveTokenUser', 'saveNameUser']),
+    ...mapMutations('doctor', ['saveTokenDoctor', 'saveNameDoctor', 'saveCertificateNumber']),
     async login () {
       if (this.type === '1') {
         const result = await axios({
@@ -109,7 +114,12 @@ export default {
         setToken(result.data)
         // 保存到Vuex
         this.saveTokenUser(result.data)
-        this.$router.push('/user')
+        // 保存用户名到Vuex
+        this.saveNameUser(this.account)
+
+
+
+        this.$router.push('/user/welcome')
         this.$message({
           message: '登陆成功',
           type: 'success'
@@ -117,7 +127,7 @@ export default {
       }
     },
   },
-  computed:{
+  computed: {
   }
 };
 </script>

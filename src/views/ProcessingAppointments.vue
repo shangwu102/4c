@@ -1,29 +1,36 @@
 <template>
   <div class="doctor-appointment-page">
-    <el-table :data="pagedData" style="width: 100%">
-      <el-table-column prop="name" label="姓名" width="200"></el-table-column>
-      <el-table-column prop="idNumber" label="身份证号" width="200"></el-table-column>
-      <el-table-column prop="phoneNumber" label="联系电话" width="200"></el-table-column>
-      <el-table-column prop="vaccine" label="疫苗名称" width="260"></el-table-column>
-      <el-table-column prop="date" label="预约日期" width="260" :formatter="formatDate"></el-table-column>
+    <el-table :data="pagedData" style="width: 100%; text-align: center;" @sort-change="sortChange" border>
+      <el-table-column prop="name" label="姓名"></el-table-column>
+      <el-table-column prop="idNumber" label="身份证号" ></el-table-column>
+      <el-table-column prop="phoneNumber" label="联系电话"></el-table-column>
+      <el-table-column prop="vaccine" label="疫苗名称"></el-table-column>
+      <el-table-column prop="date" label="预约日期" :formatter="formatDate" sortable="custom"></el-table-column>
+      <el-table-column prop="status" label="状态">
+        <template slot-scope="scope">
+          <span v-if="scope.row.status === 0" style="color: red">已拒绝</span>
+          <span v-if="scope.row.status === 1" style="color: green">已同意</span>
+        </template>
+      </el-table-column>
     </el-table>
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
       :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="total">
     </el-pagination>
   </div>
 </template>
+
 <script>
-import request from '@/utils/request'; // 假设你有一个 utils/request.js 文件用于处理请求
+import request from '@/utils/request';
 
 export default {
-  name:"MyPage",
   data () {
     return {
       appointments: [], // 存储多个预约的数组
       pagedData: [], // 当前页显示的预约数组
       currentPage: 1, // 当前页码
-      pageSize: 10, // 每页显示的预约数量
+      pageSize: 12, // 每页显示的预约数量
       total: 0, // 总的预约数量
+      sortOrder: '', // 排序顺序
     };
   },
   created () {
@@ -41,19 +48,25 @@ export default {
       console.log(`当前页: ${val}`);
     },
     updatePagedData () {
+      let data = [...this.appointments].filter(appointment => appointment.status !== 2);
+      if (this.sortOrder === 'ascending') {
+        data.sort((a, b) => new Date(a.date) - new Date(b.date));
+      } else if (this.sortOrder === 'descending') {
+        data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      }
       const start = (this.currentPage - 1) * this.pageSize;
       const end = start + this.pageSize;
-      this.pagedData = this.appointments.slice(start, end);
+      this.pagedData = data.slice(start, end);
     },
     async fetchAppointments () {
       try {
         const result = await request({
-          url: `http://localhost:8080/doctorAppointmentsList`, // 替换为实际的API端点
+          url: `http://localhost:8080/msgAll`,
           method: 'get',
         });
-        this.appointments = result.data; // 假设返回的数据包含预约对象的数组
+        this.appointments = result.data;
         this.total = result.data.length;
-        this.updatePagedData(); // 初始化分页数据
+        this.updatePagedData();
       } catch (error) {
         console.error('获取预约状态失败:', error);
       }
@@ -66,8 +79,11 @@ export default {
       const day = dt.getDate().toString().padStart(2, '0');
       return `${year}-${month}-${day}`;
     },
-    statusFormatter (row, column, cellValue) {
-      return cellValue === 0 ? '预约中' : '预约成功';
+    sortChange ({ prop, order }) {
+      if (prop === 'date') {
+        this.sortOrder = order;
+        this.updatePagedData();
+      }
     }
   }
 };

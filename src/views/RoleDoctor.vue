@@ -7,23 +7,23 @@
         </div>
       </el-header>
       <el-container>
-        <el-aside width="300px" class="aside-fixed" style="background-color:white;margin-top: 1%;">
+        <el-aside width="300px" class="aside-fixed" style="background-color:white;margin-top: 1%;  min-height: 85vh;">
           <el-menu class="el-menu-vertical-demo">
             <el-menu-item index="1" @click="showHome">
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <svg-icon class="logo" iconClass="home"></svg-icon>
                 <span slot="title" style="font-size: 24px; ">首页</span>
               </template>
             </el-menu-item>
             <el-menu-item index="2" @click="showPersonal">
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <svg-icon class="logo" iconClass="doctor"></svg-icon>
                 <span slot="title" style="font-size: 24px; ">个人中心</span>
               </template>
             </el-menu-item>
             <el-submenu index="3">
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <svg-icon class="logo" iconClass="vaccinate"></svg-icon>
                 <span slot="title" style="font-size: 24px; ">接种信息管理</span>
               </template>
               <el-menu-item index="optionOne" @click="showOption('/doctor/query')"><span
@@ -32,15 +32,19 @@
                   style="font-size: 18px;">信息上链</span></el-menu-item>
             </el-submenu>
 
-            <el-menu-item index="4" @click="reservation">
+            <el-submenu index="4">
               <template slot="title">
-                <i class="el-icon-location"></i>
-                <span slot="title" style="font-size: 24px;">查看预约</span>
+                <svg-icon class="logo" iconClass="reservationDoctor"></svg-icon>
+                <span slot="title" style="font-size: 24px; ">预约接种管理</span>
               </template>
-            </el-menu-item>
+              <el-menu-item index="optionOne1" @click="handleReservation"><span
+                  style="font-size: 18px; ">查看预约</span></el-menu-item>
+              <el-menu-item index="optionTwo2" @click="reservation"><span
+                  style="font-size: 18px; ">处理预约</span></el-menu-item>
+            </el-submenu>
             <el-menu-item index="7" @click="showInventory('/doctor/inventory')">
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <svg-icon class="logo" iconClass="inventory"></svg-icon>
                 <span slot="title" style="font-size: 24px;">库存管理</span>
               </template>
             </el-menu-item>
@@ -66,7 +70,13 @@ export default {
     };
   },
   methods: {
-    handleOpen (key, keyPath) {
+    handleReservation() {
+      if (this.$route.path !== '/doctor/processing') {
+        this.$router.push('/doctor/processing');
+      }
+
+    },
+     handleOpen (key, keyPath) {
       console.log(key, keyPath);
     },
     handleClose (key, keyPath) {
@@ -119,6 +129,7 @@ h2 {
 .el-menu-item,
 .el-submenu {
   margin-bottom: 20px;
+  margin-left: 25px;
 }
 
 .el-menu-vertical-demo {
@@ -131,5 +142,10 @@ h2 {
 .el-aside {
   border-right: 2px solid rgb(203, 164, 164);
   height: 85vh;
+}
+.logo {
+  position: relative;
+  right: 5%;
+  top: 5%;
 }
 </style>

@@ -2,7 +2,8 @@
   <div class="box">
     <div class="left">
       <p class="text" id="animatedText">
-        <span v-for="(letter, index) in welcomeText" :key="index">{{ letter }}</span>
+        <span v-for="(letter, index) in welcomeText" :key="index" :class="{ newline: letter === '\n' }">{{ letter
+          }}</span>
       </p>
     </div>
     <div class="right">
@@ -16,11 +17,12 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
   data () {
     return {
-      welcomeText: '欢迎来到链上接种证平台 疫苗是世界上保护儿童免受致命疾病威胁的最安全方式。'.split(''),
+      welcomeText: `欢迎来到链上接种证平台\n疫苗是世界上保护儿童免受致命疾病威胁的最安全方式。`.split(''),
     };
   },
   mounted () {
@@ -32,11 +34,15 @@ export default {
       let i = 0;
       const showLetter = () => {
         if (i < letters.length) {
-          letters[i].style.opacity = 1;
+          if (letters[i].textContent === '\n') {
+            letters[i].style.display = 'block';
+          } else {
+            letters[i].style.opacity = 1;
+          }
           i++;
-          setTimeout(showLetter, 500);
+          setTimeout(showLetter, 300);
         } else {
-          setTimeout(this.hideLetters, 500); // 等待500毫秒后隐藏
+          setTimeout(this.hideLetters, 300); // 等待300毫秒后隐藏
         }
       };
 
@@ -51,21 +57,29 @@ export default {
       };
       showLetter();
     },
-    login() {
+    login () {
       this.$router.push('/login');
     },
-    register() {
+    register () {
       this.$router.push('/register');
     }
   }
 };
 </script>
+
 <style scoped>
 .text span {
   color: rgb(111, 49, 227);
   opacity: 0;
   transition: opacity 0.8s ease;
 }
+
+.text span.newline {
+  display: block;
+  width: 100%;
+  height: 0;
+}
+
 .box {
   width: 100vw;
   height: 100vh;
@@ -74,44 +88,50 @@ export default {
 }
 
 .box .left {
-  background-color:#00002E ;
+  background-color: #00002E;
   display: flex;
   flex: 3;
-}
-.box .left .text {
-  font-size: 30px;
   align-items: center;
   justify-content: center;
 }
 
+.box .left .text {
+  font-size: 50px;
+  text-align: center;
+}
+
 .box .right {
   background-color: rgb(0, 0, 0);
-    flex: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
+
 .box .right .loginStart {
   text-align: center;
   height: 40%;
   width: 70%;
 }
+
 .box .right .loginStart h1 {
   color: white;
 }
+
 .box .right .loginStart .minbox {
   margin-top: 20%;
-  
+
 }
+
 button {
   width: 170px;
   height: 50px;
-  margin-left:10px ;
+  margin-left: 10px;
   margin-top: 30px;
   border-radius: 8px;
   background-color: rgb(57, 166, 234);
-  cursor:pointer;
+  cursor: pointer;
   box-shadow: 0px 0px 10px 0px rgba(174, 158, 158, 0.5);
 }
 </style>

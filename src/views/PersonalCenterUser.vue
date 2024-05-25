@@ -3,12 +3,13 @@
     <div class="card">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <h2>{{ getDoctorName }}</h2>
+          <sapn style="font-weight: bold; font-size: 24px;">用户名：</sapn><span
+            style="font-weight: bold; font-size: 24px;">{{ geUserName }}</span>
         </div>
         <div class="text item">
           <ul>
-            <li><span>您的执业资格证编号：{{ getDoctorCertificateNumber }}</span></li>
-            <el-button @click="logout">退出</el-button>
+            <li><span>希望您的孩子健康成长每一天！</span></li>
+            <el-button @click="logout" style="float: right;">退出</el-button>
           </ul>
         </div>
       </el-card>
@@ -21,7 +22,7 @@ import { mapGetters } from 'vuex';
 import { delToken } from '@/utils/localStorage';
 export default {
   computed: {
-    ...mapGetters('doctor', ['getDoctorName', 'getDoctorCertificateNumber']),
+    ...mapGetters('user', ['geUserName']),
   },
   methods: {
     logout () {

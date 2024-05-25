@@ -3,12 +3,13 @@
     <div class="card">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <h2>{{ getDoctorName }}</h2>
+          <span style="font-weight: bold; font-size: 24px;">{{ getDoctorName }}</span>
+          <sapn style="font-weight: bold; font-size: 24px;">您好</sapn>
         </div>
         <div class="text item">
           <ul>
             <li><span>您的执业资格证编号：{{ getDoctorCertificateNumber }}</span></li>
-            <el-button @click="logout">退出</el-button>
+            <el-button @click="logout" style="float: right;">退出</el-button>
           </ul>
         </div>
       </el-card>

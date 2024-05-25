@@ -14,10 +14,10 @@
       <el-table-column prop="name" align="center" label="疫苗名称"></el-table-column>
       <el-table-column prop="batchNumber" align="center" label="疫苗批号"></el-table-column>
       <el-table-column prop="produce" align="center" label="生产企业"></el-table-column>
-      <el-table-column prop="position" align="center" label="接种部位"></el-table-column>
-      <el-table-column prop="position" align="center" label="接种单位"></el-table-column>
-      <el-table-column prop="time" align="center" label="接种日期"></el-table-column>
-      <el-table-column prop="timeStamp" align="center" label="上链时间"></el-table-column>
+      <el-table-column prop="position" align="center" label="接种部位" width="120"></el-table-column>
+      <el-table-column prop="produce" align="center" label="接种单位" width="120"></el-table-column>
+      <el-table-column prop="time" align="center" label="接种日期" width="120"></el-table-column>
+      <el-table-column prop="timeStamp" align="center" label="上链时间" width="170"></el-table-column>
     </el-table>
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
       :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="total">
@@ -31,7 +31,7 @@ export default {
   data () {
     return {
       currentPage: 1,
-      pageSize: 7,
+      pageSize: 7, // 每页展示 7 条数据
       form: {
         card: ''
       },
@@ -133,7 +133,7 @@ export default {
     },
     setPageSize () {
       console.log(window.innerWidth);
-      this.pageSize = window.innerHeight < 768 ? 6 : 14;
+      this.pageSize = 7;
       this.updatePagedData();
     }
   }
@@ -147,5 +147,11 @@ export default {
 
 .el-button {
   margin-left: 1%;
+}
+
+.el-pagination {
+  position: absolute;
+  left: 22%;
+  bottom: 1%;
 }
 </style>

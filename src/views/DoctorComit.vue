@@ -9,18 +9,10 @@
         <el-input v-model="vaccinumMsg.number"></el-input>
       </el-form-item>
       <el-form-item label="疫苗名称" prop="name">
-        <el-select v-model="vaccinumMsg.name" placeholder="请选择疫苗名称">
-          <el-option label="乙肝疫苗" value="乙肝疫苗"></el-option>
-          <el-option label="卡介苗" value="卡介苗"></el-option>
-          <el-option label="脊灰疫苗" value="脊灰疫苗"></el-option>
-          <el-option label="百白破疫苗" value="百白破疫苗"></el-option>
-          <el-option label="白破疫苗" value="白破疫苗"></el-option>
-          <el-option label="麻风(麻疹)疫苗" value="麻风(麻疹)疫苗"></el-option>
-          <el-option label="麻腮风(麻腮、麻疹)疫苗" value="麻腮风(麻疹)疫苗"></el-option>
-          <el-option label="乙脑减毒活疫苗" value="乙脑减毒活疫苗"></el-option>
-          <el-option label="A群流脑疫苗" value="A群流脑疫苗"></el-option>
-          <el-option label="A+C群流脑疫苗" value="A+C群流脑疫苗"></el-option>
-          <el-option label="甲肝减毒活疫苗" value="甲肝减毒活疫苗"></el-option>
+        <el-select v-model="vaccinumMsg.name" placeholder="请选择疫苗名称" @change="updateStock">
+          <el-option v-for="vaccine in vaccines" :key="vaccine.name" :label="`${vaccine.name} (库存: ${vaccine.stock})`"
+            :value="vaccine.name">
+          </el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="接种日期" prop="time">
@@ -53,7 +45,8 @@
 
 <script>
 import request from '@/utils/request'
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
+
 export default {
   data () {
     return {
@@ -96,17 +89,25 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState('vaccinum', ['vaccines']),
+  },
   methods: {
-    // ...mapActions['vaccinum',['changeStock']],
     ...mapActions('vaccinum', ['changeStock']),
-    submitForm (formName) {
+    updateStock (name) {
+      const selectedVaccine = this.vaccines.find(vaccine => vaccine.name === name);
+      if (selectedVaccine) {
+        this.vaccinumMsg.stock = selectedVaccine.stock;
+      }
+    },
+    async submitForm (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          this.changeStock(this.vaccinumMsg.name);
-          // this.$store.dispatch('changeStock', this.vaccinumMsg.name);
           // 将接种日期转换为时间戳
           const timestamp = new Date(this.vaccinumMsg.time).getTime();
-          this.vaccinumMsg.time = timestamp
+          this.vaccinumMsg.time = timestamp;
+
+          // 发送请求
           const result = await request({
             url: '/doctor/addinfo',
             method: 'post',
@@ -118,10 +119,18 @@ export default {
               message: '上链成功',
               type: 'success'
             });
-          }
-          // 将对应的库存量减少
 
-          this.resetForm(formName);
+            // 将对应的库存量减少
+            this.changeStock({ name: this.vaccinumMsg.name, amount: -1 });
+
+            // 重置表单
+            this.resetForm(formName);
+          } else {
+            this.$message({
+              message: '上链失败',
+              type: 'error'
+            });
+          }
         } else {
           console.log('表单提交失败！');
           return false;
@@ -149,5 +158,4 @@ export default {
 .el-form {
   margin-top: 5%;
 }
-
 </style>

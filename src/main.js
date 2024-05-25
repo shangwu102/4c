@@ -3,11 +3,11 @@ import App from './App.vue'
 import '@/utils/element-ui'
 import '@/style/common.css'
 import '@/utils/plugin'
-
 import router from '@/router'
 import store from '@/store'
-
+import '@/icons/index'
 Vue.config.productionTip = false
+
 
 new Vue({
   router,
