@@ -1,46 +1,49 @@
 <template>
   <div>
-    <el-container>
+    <el-container style="height: 100vh;">
       <el-header>
         <div style="display: flex;">
           <h2>医生管理系统</h2>
         </div>
       </el-header>
       <el-container>
-        <el-aside width="300px" class="aside-fixed" style="background-color:white;margin-top: 1%;  min-height: 85vh;">
+        <el-aside class="aside-fixed" style="width: 260px;">
           <el-menu class="el-menu-vertical-demo">
             <el-menu-item index="1" @click="showHome">
               <template slot="title">
                 <svg-icon class="logo" iconClass="home"></svg-icon>
-                <span slot="title" style="font-size: 24px; ">首页</span>
+                <span slot="title" style="font-size: 24px;">首页</span>
               </template>
             </el-menu-item>
             <el-menu-item index="2" @click="showPersonal">
               <template slot="title">
                 <svg-icon class="logo" iconClass="doctor"></svg-icon>
-                <span slot="title" style="font-size: 24px; ">个人中心</span>
+                <span slot="title" style="font-size: 24px;">个人中心</span>
               </template>
             </el-menu-item>
             <el-submenu index="3">
               <template slot="title">
                 <svg-icon class="logo" iconClass="vaccinate"></svg-icon>
-                <span slot="title" style="font-size: 24px; ">接种信息管理</span>
+                <span slot="title" style="font-size: 24px;">接种信息管理</span>
               </template>
-              <el-menu-item index="optionOne" @click="showOption('/doctor/query')"><span
-                  style="font-size: 18px;">信息查询</span></el-menu-item>
-              <el-menu-item index="optionTwo" @click="showOption('/doctor/commit')"><span
-                  style="font-size: 18px;">信息上链</span></el-menu-item>
+              <el-menu-item index="optionOne" @click="showOption('/doctor/query')">
+                <span style="font-size: 18px;">信息查询</span>
+              </el-menu-item>
+              <el-menu-item index="optionTwo" @click="showOption('/doctor/commit')">
+                <span style="font-size: 18px;">信息上链</span>
+              </el-menu-item>
             </el-submenu>
-
             <el-submenu index="4">
               <template slot="title">
                 <svg-icon class="logo" iconClass="reservationDoctor"></svg-icon>
-                <span slot="title" style="font-size: 24px; ">预约接种管理</span>
+                <span slot="title" style="font-size: 24px;">预约接种管理</span>
               </template>
-              <el-menu-item index="optionOne1" @click="handleReservation"><span
-                  style="font-size: 18px; ">查看预约</span></el-menu-item>
-              <el-menu-item index="optionTwo2" @click="reservation"><span
-                  style="font-size: 18px; ">处理预约</span></el-menu-item>
+              <el-menu-item index="optionOne1" @click="handleReservation">
+                <span style="font-size: 18px;">查看预约</span>
+              </el-menu-item>
+              <el-menu-item index="optionTwo2" @click="reservation">
+                <span style="font-size: 18px;">处理预约</span>
+              </el-menu-item>
             </el-submenu>
             <el-menu-item index="7" @click="showInventory('/doctor/inventory')">
               <template slot="title">
@@ -70,13 +73,12 @@ export default {
     };
   },
   methods: {
-    handleReservation() {
+    handleReservation () {
       if (this.$route.path !== '/doctor/processing') {
         this.$router.push('/doctor/processing');
       }
-
     },
-     handleOpen (key, keyPath) {
+    handleOpen (key, keyPath) {
       console.log(key, keyPath);
     },
     handleClose (key, keyPath) {
@@ -87,17 +89,17 @@ export default {
         this.$router.push('/doctor/welcome');
       }
     },
-    reservation() {
+    reservation () {
       if (this.$route.path !== '/doctor/reservation') {
         this.$router.push('/doctor/reservation');
       }
     },
-    showInventory() {
+    showInventory () {
       if (this.$route.path !== '/doctor/inventory') {
         this.$router.push('/doctor/inventory');
       }
     },
-    showPersonal() {
+    showPersonal () {
       if (this.$route.path !== '/doctor/personal') {
         this.$router.push('/doctor/personal');
       }
@@ -108,8 +110,7 @@ export default {
         this.$router.push(path);
       }
     },
-    uploadMsg () {
-    },
+    uploadMsg () { },
     logout () {
       delToken();
       this.$router.push('/home'); // 修改退出后跳转的路径为登录页
@@ -123,7 +124,7 @@ h2 {
   font-size: 40px;
   text-align: center;
   width: 100%;
-  background-color: rgba(89, 202, 164, 0.5);
+  background-color: rgba(111, 239, 133, 0.5);
 }
 
 .el-menu-item,
@@ -132,16 +133,14 @@ h2 {
   margin-left: 25px;
 }
 
-.el-menu-vertical-demo {
-  margin-top: 6%;
-}
-
 .el-submenu .el-menu-item {
   margin-bottom: 0;
 }
+
 .el-aside {
-  border-right: 2px solid rgb(203, 164, 164);
-  height: 85vh;
+  border: 2px solid rgba(217, 207, 207, 0.5);
+  height: calc(100vh - 8.2vh);
+  background-color: rgba(192, 180, 180, 0.5);
 }
 .logo {
   position: relative;

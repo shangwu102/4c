@@ -1,13 +1,13 @@
 <template>
   <div>
-    <el-container>
+    <el-container style="height: 100vh;">
       <el-header>
         <div style="display: flex;">
           <h2>用户管理系统</h2>
         </div>
       </el-header>
       <el-container>
-        <el-aside width="300px" class="aside-fixed" style="background-color:white;margin-top: 1%; min-height: 85vh;">
+        <el-aside class="aside-fixed" style="width: 260px;">
           <el-menu class="el-menu-vertical-demo">
             <el-menu-item index="1" @click="showHome">
               <template slot="title">
@@ -31,11 +31,6 @@
               <el-menu-item index="optionTwo" @click="showOption('/user/query')"><span
                   style="font-size: 18px; ">接种查询</span></el-menu-item>
             </el-submenu>
-
-
-
-
-
             <el-submenu index="4">
               <template slot="title">
                 <svg-icon class="logo" iconClass="reservationUser"></svg-icon>
@@ -46,23 +41,6 @@
               <el-menu-item index="optionTwo2" @click="showOption('/user/view')"><span
                   style="font-size: 18px; ">查看预约</span></el-menu-item>
             </el-submenu>
-
-
-
-
-
-            <!-- <el-menu-item index="4" @click="reservation">
-              <template slot="title">
-                <i class="el-icon-location"></i>
-                <span slot="title" style="font-size: 24px;">申请预约</span>
-              </template>
-            </el-menu-item> -->
-            <!-- <el-menu-item index="7" @click="showInventory('/doctor/inventory')">
-              <template slot="title">
-                <i class="el-icon-location"></i>
-                <span slot="title" style="font-size: 24px;">库存管理</span>
-              </template>
-            </el-menu-item> -->
           </el-menu>
         </el-aside>
         <el-container>
@@ -132,27 +110,29 @@ h2 {
   font-size: 40px;
   text-align: center;
   width: 100%;
-  background-color: rgba(89, 202, 164, 0.5);
+  background-color: rgba(111, 239, 133, 0.5);
 }
 
 .el-menu-item,
 .el-submenu {
   margin-bottom: 20px;
-    margin-left: 25px;
+  margin-left: 25px;
 }
 
-.el-menu-vertical-demo {
-  margin-top: 6%;
-}
 
 .el-submenu .el-menu-item {
   margin-bottom: 0;
 }
-
 .el-aside {
+  border: 2px solid rgba(217, 207, 207, 0.5);
+  height: calc(100vh - 8.2vh);
+  background-color: rgba(192, 180, 180, 0.5);
+}
+/* .el-aside {
   border-right: 2px solid rgb(203, 164, 164);
   height: 85vh;
-}
+} */
+
 .logo {
   position: relative;
   right: 5%;

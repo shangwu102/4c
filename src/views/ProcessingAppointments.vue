@@ -28,7 +28,7 @@ export default {
       appointments: [], // 存储多个预约的数组
       pagedData: [], // 当前页显示的预约数组
       currentPage: 1, // 当前页码
-      pageSize: 12, // 每页显示的预约数量
+      pageSize: 10, // 每页显示的预约数量
       total: 0, // 总的预约数量
       sortOrder: '', // 排序顺序
     };

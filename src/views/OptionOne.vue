@@ -85,7 +85,6 @@
 </template>
 
 <script>
-import { delToken } from '@/utils/localStorage'
 export default {
   data () {
     return {
@@ -102,15 +101,6 @@ export default {
         { name: 'A+C群流脑疫苗', year3: true,year6:true },
         { name: '甲肝减毒活疫苗#', month18: true },
       ]
-    }
-  },
-  methods: {
-    queryVaccineTime () {
-
-    },
-    clear () {
-      delToken()
-      this.$router.push('/home')
     }
   }
 }
