@@ -100,7 +100,7 @@ export default {
 
 .el-pagination {
   position: absolute;
-  left: 19%;
-  bottom: 2%;
+  left: 22%;
+  bottom: 1%;
 }
 </style>
