@@ -19,8 +19,8 @@ import ReservationUser from '@/views/ReservationUser.vue' // 申请预约页面
 import InventoryPage from '@/views/InventoryPage.vue' // 疫苗库存页面
 import AppointmentVaccines from '@/views/AppointmentVaccines.vue' // 用户预约页面
 import ProcessingAppointments from '@/views/ProcessingAppointments.vue' // 查看预约页面
-import { getToken } from '@/utils/localStorage'
-
+import { getDoctorToken, getUserToken } from '@/utils/localStorage';
+import { Message } from 'element-ui';
 
 Vue.use(VueRouter)
 
@@ -64,23 +64,47 @@ const router = new VueRouter({
 })
 
 // 存放需要权限访问的路径
-const authUrls = ['/doctor', '/user']
+const doctorAuthUrls = ['/doctor'];
+const userAuthUrls = ['/user'];
 
 // 全局前置导航守卫
-// 所有路由在被访问之前，要先经过全局前置守卫
 router.beforeEach((to, from, next) => {
-  if (!authUrls.includes(to.path)) {
+  const isDoctorRoute = doctorAuthUrls.some(url => to.path.startsWith(url));
+  const isUserRoute = userAuthUrls.some(url => to.path.startsWith(url));
+
+  if (!isDoctorRoute && !isUserRoute) {
     // 非权限页面直接放行
-    next()
-    return
+    next();
+    return;
   }
+
   // 是权限页面
-  const token = getToken()
-  if (token) {
-    next()
-  } else {
-    next('/home')
+  if (isDoctorRoute) {
+    // 需要医生权限
+    const doctorToken = getDoctorToken();
+    if (doctorToken) {
+      next();
+    } else {
+      Message({
+        type: 'warning',
+        message: '请先登录'
+      });
+      next('/home');
+    }
+  } else if (isUserRoute) {
+    // 需要用户权限
+    const userToken = getUserToken();
+    if (userToken) {
+      next();
+    } else {
+      Message({
+        type: 'warning',
+        message: '请先登录'
+      });
+      next('/home');
+
+    }
   }
-})
+});
 
 export default router

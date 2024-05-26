@@ -83,6 +83,7 @@ export default {
         console.log(7777);
         this.appointments = JSON.parse(savedAppointments);
         this.total = this.appointments.length;
+        this.fetchAppointments();
         this.updatePagedData();
       } else {
         console.log(6666);

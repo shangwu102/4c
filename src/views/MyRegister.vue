@@ -49,7 +49,7 @@
 
 <script>
 import axios from '@/utils/request'
-import {setToken} from '@/utils/localStorage'
+import {setUserToken,setDoctorToken} from '@/utils/localStorage'
 export default {
   data() {
     return {
@@ -87,7 +87,7 @@ export default {
             type: 'success'
           })
           // 保存token到本地
-          setToken(result.data)
+          setDoctorToken(result.data)
           this.$router.push('/login');
         } else if (this.type === '2') {
           const result = await axios({
@@ -105,7 +105,7 @@ export default {
             type: 'success'
           });
           // 保存token到本地
-          setToken(result.data)
+          setUserToken(result.data)
           this.$router.push('/login');
         }
       } 

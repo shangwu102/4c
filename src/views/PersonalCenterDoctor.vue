@@ -4,7 +4,7 @@
       <el-card class="box-card">
         <div slot="header" class="clearfix">
           <span style="font-weight: bold; font-size: 24px;">{{ getDoctorName }}</span>
-          <sapn style="font-weight: bold; font-size: 24px;">您好</sapn>
+          <span style="font-weight: bold; font-size: 24px;">您好</span>
         </div>
         <div class="text item">
           <ul>
@@ -19,14 +19,14 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { delToken } from '@/utils/localStorage';
+import { delDoctorToken } from '@/utils/localStorage';
 export default {
   computed:{
     ...mapGetters('doctor', ['getDoctorName', 'getDoctorCertificateNumber']),
   },
   methods:{
     logout () {
-      delToken();
+      delDoctorToken();
       this.$router.push('/home');
     }
   }

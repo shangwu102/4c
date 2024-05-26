@@ -3,7 +3,7 @@
     <div class="card">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <sapn style="font-weight: bold; font-size: 24px;">用户名：</sapn><span
+          <span style="font-weight: bold; font-size: 24px;">用户名：</span><span
             style="font-weight: bold; font-size: 24px;">{{ geUserName }}</span>
         </div>
         <div class="text item">
@@ -19,14 +19,14 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { delToken } from '@/utils/localStorage';
+import { delUserToken } from '@/utils/localStorage';
 export default {
   computed: {
     ...mapGetters('user', ['geUserName']),
   },
   methods: {
     logout () {
-      delToken();
+      delUserToken();
       this.$router.push('/home');
     }
   }

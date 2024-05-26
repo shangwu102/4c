@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Message } from 'element-ui';
-import {getToken} from '@/utils/localStorage'
+import { getUserToken, getDoctorToken,getType } from '@/utils/localStorage';
 // 创建axios实例，将来对创建出来的实例，进行自定义配置，不会污染原始的axios实例
 const instance = axios.create({
   baseURL: 'http://localhost:8080',
@@ -11,9 +11,17 @@ const instance = axios.create({
 // 添加请求拦截器
 instance.interceptors.request.use(function(config) {
   // 在发送请求之前做些什么
-  const token = getToken()
-  if(token) {
-    config.headers['token'] = token
+  const type = getType();  // 获取 type 值
+  let token;
+  console.log(type);
+  if (type === '1') {
+    token = getDoctorToken();
+  } else if (type === '2') {
+    token = getUserToken();
+  }
+
+  if (token) {
+    config.headers['token'] = token;
   }
   return config;
 }, function(error) {
@@ -25,9 +33,9 @@ instance.interceptors.request.use(function(config) {
 instance.interceptors.response.use(function(response) {
   const result = response.data
   // console.log(result);
-  if(result.code !== 1) {
+  if (result.code !== 1) {
     Message({
-      type:'error',
+      type: 'error',
       message: result.msg
     })
     return Promise.reject(result)

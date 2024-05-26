@@ -1,24 +1,24 @@
+import {getDoctorToken,setDoctorToken,getDoctorName,setDoctorName,getDoctorCertificateNumber,setDoctorCertificateNumber} from '@/utils/localStorage'
 const state = {
-  doctorToken: localStorage.getItem('doctorToken') || '',
-  name: localStorage.getItem('doctorName') || '',
-  certificateNumber: localStorage.getItem('doctorCertificateNumber') || ''
+  doctorToken: getDoctorToken() || '',
+  name: getDoctorName() || '',
+  certificateNumber: getDoctorCertificateNumber() || ''
 }
-
 const mutations = {
   // 保存token
   saveTokenDoctor (state, token) {
     state.doctorToken = token
-    localStorage.setItem('doctorToken', token)
+    setDoctorToken(token)
   },
   // 保存医生姓名
   saveNameDoctor (state, name) {
     state.name = name
-    localStorage.setItem('doctorName', name)
+    setDoctorName(name)
   },
   // 保存医生执业资格证
   saveCertificateNumber (state, certificateNumber) {
     state.certificateNumber = certificateNumber
-    localStorage.setItem('doctorCertificateNumber', certificateNumber)
+    setDoctorCertificateNumber(certificateNumber)
   }
 }
 

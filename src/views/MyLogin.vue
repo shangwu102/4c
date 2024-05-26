@@ -48,7 +48,6 @@
 
 <script>
 import axios from '@/utils/request'
-import { setToken } from '@/utils/localStorage'
 import { mapMutations } from 'vuex'
 export default {
   data () {
@@ -72,6 +71,7 @@ export default {
   methods: {
     ...mapMutations('user', ['saveTokenUser', 'saveNameUser']),
     ...mapMutations('doctor', ['saveTokenDoctor', 'saveNameDoctor', 'saveCertificateNumber']),
+    ...mapMutations(['saveType']),
     async login () {
       if (this.type === '1') {
         const result = await axios({
@@ -85,8 +85,7 @@ export default {
           }
         })
         console.log(result);
-        // 保存token到本地
-        setToken(result.data)
+        this.saveType(this.type)
         // 保存token到Vuex
         this.saveTokenDoctor(result.data)
         // 保存医生姓名到Vuex
@@ -110,15 +109,11 @@ export default {
           }
         })
         console.log(result);
-        // 保存token到本地
-        setToken(result.data)
+        this.saveType(this.type)
         // 保存到Vuex
         this.saveTokenUser(result.data)
         // 保存用户名到Vuex
         this.saveNameUser(this.account)
-
-
-
         this.$router.push('/user/welcome')
         this.$message({
           message: '登陆成功',
