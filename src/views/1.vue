@@ -48,7 +48,7 @@ export default {
     async fetchAppointments () {
       try {
         const result = await request({
-          url: `http://localhost:8080/doctorAppointmentsList`, // 替换为实际的API端点
+          url: `http://47.120.62.6:8080/doctorAppointmentsList`, // 替换为实际的API端点
           method: 'get',
         });
         this.appointments = result.data; // 假设返回的数据包含预约对象的数组

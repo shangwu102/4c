@@ -133,16 +133,20 @@ export default {
         this.$refs.appointmentForm2.resetFields();
       }
       this.activeStep++;
-      const result = await request({
-        url: 'http://localhost:8080/submit',
-        method: 'post',
-        data: this.appointmentForm
-      });
-      console.log(result);
-      this.$message({
-        message: '提交成功！',
-        type: 'success'
-      });
+      try {
+        const result = await request({
+          url: '/submit',
+          method: 'post',
+          data: this.appointmentForm
+        });
+        console.log(result);
+        this.$message({
+          message: '提交成功！',
+          type: 'success'
+        });
+      } catch(error) {
+        console.log(error);
+      }
       this.$router.push({
         path: '/user/view',
         query: {

@@ -60,7 +60,7 @@ export default {
     async fetchAppointments () {
       try {
         const result = await request({
-          url: `http://localhost:8080/doctorAppointmentsListFalse`,
+          url: `/doctorAppointmentsListFalse`,
           method: 'get',
         });
         this.appointments = result.data;
@@ -76,8 +76,11 @@ export default {
     },
     loadAppointments () {
       const savedAppointments = localStorage.getItem('appointments');
+      console.log(savedAppointments);
       console.log(savedAppointments === false);
-      if (!savedAppointments) {
+      // 检查 savedAppointments 是否为 null 或者空字符串
+      if (savedAppointments && savedAppointments !== '[]') {
+        console.log(7777);
         this.appointments = JSON.parse(savedAppointments);
         this.total = this.appointments.length;
         this.updatePagedData();
@@ -89,7 +92,7 @@ export default {
     async approveAppointment (id) {
       try {
         await request({
-          url: `http://localhost:8080/approveAppointmentAgree/${id}`,
+          url: `/approveAppointmentAgree/${id}`,
           method: 'get'
         });
         this.$message({
@@ -108,7 +111,7 @@ export default {
     async rejectAppointment (id) {
       try {
         await request({
-          url: `http://localhost:8080/approveAppointmentRefuse/${id}`,
+          url: `/approveAppointmentRefuse/${id}`,
           method: 'get'
         });
         this.$message({

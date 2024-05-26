@@ -61,7 +61,7 @@ export default {
     async fetchAppointments () {
       try {
         const result = await request({
-          url: `http://localhost:8080/msgAll`,
+          url: `/msgAll`,
           method: 'get',
         });
         this.appointments = result.data;

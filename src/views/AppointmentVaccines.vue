@@ -59,7 +59,7 @@ export default {
       try {
         console.log(this.idNumber);
         const result = await request({
-          url: `http://localhost:8080/appointmentsList/${this.idNumber}`, 
+          url: `/appointmentsList/${this.idNumber}`, 
           method: 'get',
         });
         this.appointments = result.data;
