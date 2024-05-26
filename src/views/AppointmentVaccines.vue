@@ -116,6 +116,7 @@ export default {
   border: 1px solid #ebeef5;
   border-radius: 4px;
   padding: 20px;
+  margin-top: 5%;
 }
 
 .status-card .clearfix {
@@ -138,8 +139,8 @@ export default {
   position: absolute;
   bottom: 10%;
   padding: 10px 0;
-  margin-top: 8%;
-  margin-left: 35%;
+  left: 55%;
+  bottom: 1%;
   text-align: center;
   width: 4%;
 }
