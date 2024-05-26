@@ -128,10 +128,6 @@ h2 {
   height: calc(100vh - 8.2vh);
   background-color: rgba(192, 180, 180, 0.5);
 }
-/* .el-aside {
-  border-right: 2px solid rgb(203, 164, 164);
-  height: 85vh;
-} */
 
 .logo {
   position: relative;

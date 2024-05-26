@@ -1,24 +1,25 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/views/MyLayout.vue' // 首页
-import Test from '@/views/MyTest.vue' // 首页
-import Login from '@/views/MyLogin.vue' // 登录页面
-import NotFund from '@/views/NotFund.vue' // 不存在提示页面
-import Register from '@/views/MyRegister.vue' // 注册页面
-import Doctor from '@/views/RoleDoctor.vue' // 医生主界面
-import User from '@/views/RoleUser.vue' // 用户主界面
-import OptionOne from '@/views/OptionOne.vue' // 儿童接种时间页面
-import commit from '@/views/DoctorComit.vue' // 医生上链信息页面
-import Welcome1 from '@/views/MyWelcomeDoctor.vue' // 医生欢迎页面
-import Welcome2 from '@/views/MyWelcomeUser.vue' // 用户欢迎页面
-import query from '@/views/UserQuery.vue' // 用户查询页面
-import PersonalDoctor from '@/views/PersonalCenterDoctor' // 医生个人中心
-import PersonalCenterUser from '@/views/PersonalCenterUser' // 用户个人中心
-import ReservationDoctor from '@/views/ReservationDoctor.vue' // 处理预约页面
-import ReservationUser from '@/views/ReservationUser.vue' // 申请预约页面
-import InventoryPage from '@/views/InventoryPage.vue' // 疫苗库存页面
-import AppointmentVaccines from '@/views/AppointmentVaccines.vue' // 用户预约页面
-import ProcessingAppointments from '@/views/ProcessingAppointments.vue' // 查看预约页面
+const Home = () => import('@/views/MyLayout.vue') // 首页
+const Test = () => import('@/views/MyTest.vue') // 测试页面
+const Login = () => import('@/views/MyLogin.vue') // 登录页面
+const Register = () => import('@/views/MyRegister.vue') // 注册页面
+const NotFund = () => import('@/views/NotFund.vue') // 不存在提示页面
+const Doctor = () => import('@/views/RoleDoctor.vue') // 医生主界面
+const User = () => import('@/views/RoleUser.vue') // 用户主界面
+const OptionOne = () => import('@/views/OptionOne.vue') // 儿童接种时间页面
+const Commit = () => import('@/views/DoctorComit.vue') // 医生上链信息页面
+const Welcome1 = () => import('@/views/MyWelcomeDoctor.vue') // 医生欢迎页面
+const Welcome2 = () => import('@/views/MyWelcomeUser.vue') // 用户欢迎页面
+const Query = () => import('@/views/UserQuery.vue') // 用户查询页面
+const PersonalDoctor = () => import('@/views/PersonalCenterDoctor.vue') // 医生个人中心
+const PersonalCenterUser = () => import('@/views/PersonalCenterUser.vue') // 用户个人中心
+const ReservationDoctor = () => import('@/views/ReservationDoctor.vue') // 处理预约页面
+const ReservationUser = () => import('@/views/ReservationUser.vue') // 申请预约页面
+const InventoryPage = () => import('@/views/InventoryPage.vue') // 疫苗库存页面
+const AppointmentVaccines = () => import('@/views/AppointmentVaccines.vue') // 用户预约页面
+const ProcessingAppointments = () => import('@/views/ProcessingAppointments.vue') // 查看预约页面
+
 import { getDoctorToken, getUserToken } from '@/utils/localStorage';
 import { Message } from 'element-ui';
 
@@ -35,9 +36,9 @@ const routes = [
     component: Doctor,
     children: [
       { path: '/doctor/welcome', component: Welcome1 },
-      { path: '/doctor/query', component: query },
+      { path: '/doctor/query', component: Query },
       { path: '/doctor/personal', component: PersonalDoctor },
-      { path: '/doctor/commit', component: commit },
+      { path: '/doctor/commit', component: Commit },
       { path: '/doctor/reservation', component: ReservationDoctor },
       { path: '/doctor/inventory', component: InventoryPage },
       { path: '/doctor/processing', component: ProcessingAppointments },
@@ -49,7 +50,7 @@ const routes = [
     children: [
       { path: '/user/welcome', component: Welcome2 },
       { path: '/user/option11', component: OptionOne },
-      { path: '/user/query', component: query },
+      { path: '/user/query', component: Query },
       { path: '/user/reservation', component: ReservationUser },
       { path: '/user/personal', component: PersonalCenterUser },
       { path: '/user/view', component: AppointmentVaccines },
