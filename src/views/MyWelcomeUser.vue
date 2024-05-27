@@ -18,7 +18,7 @@ export default {
 
 .pic {
   width: 100%;
-  height: 85vh;
+  height: 86vh;
   background-image: url('../assets/welcomeUser.jpg');
   background-size: cover;
   background-position: center 80%;
