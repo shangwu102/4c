@@ -5,6 +5,14 @@
         <span v-for="(letter, index) in welcomeText" :key="index" :class="{ newline: letter === '\n' }">{{ letter
           }}</span>
       </p>
+      <div class="links">
+        <a class="a2" target="_blank"
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37028102001493">
+          <img src="../assets/备案图标.png" />
+          鲁公网安备37028102001616号
+        </a>
+        <a class="a1" href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备2024091574号</a>
+      </div>
     </div>
     <div class="right">
       <div class="loginStart">
@@ -90,14 +98,22 @@ export default {
 .box .left {
   background-color: #00002E;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   flex: 3;
   align-items: center;
-  justify-content: center;
+  position: relative;
 }
 
 .box .left .text {
   font-size: 50px;
   text-align: center;
+}
+
+.box .left .links {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
 }
 
 .box .right {
@@ -121,7 +137,6 @@ export default {
 
 .box .right .loginStart .minbox {
   margin-top: 20%;
-
 }
 
 button {
@@ -133,5 +148,13 @@ button {
   background-color: rgb(57, 166, 234);
   cursor: pointer;
   box-shadow: 0px 0px 10px 0px rgba(174, 158, 158, 0.5);
+}
+
+.a1,
+.a2 {
+  color: rgb(255,255,255,0.7);
+  text-decoration: none;
+  margin-top: 5px;
+  text-align: center;
 }
 </style>

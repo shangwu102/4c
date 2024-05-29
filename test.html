@@ -7,78 +7,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      position: relative;
-      width: 1920px;
-      height: 1080px;
-      border: 3px solid red;
-      /* 设置缩放原点 */
-      transform-origin: left top;
-      box-sizing: border-box;
-    }
-
-    ul {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      width: 100%;
-      height: 100%;
-    }
-
-    li {
-      width: 33.333%;
-      height: 50%;
-      font-size: 30px;
-      list-style: none;
-      border: 3px solid green;
-      box-sizing: border-box;
-    }
+   div {
+    width: 200px;
+    height: 200px;
+    background-color: aqua;
+   }
   </style>
 </head>
 
 <body>
-  <ul>
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
-    <li>4</li>
-    <li>5</li>
-    <li>6</li>
-  </ul>
+  <div>
+    44444444444444444444444444444444444444444444444444444444444444444444444444444
+  </div>
 </body>
-<script>
-  // 设计稿：1920 * 1080
-  // 设配目标：1920 * 1080 ( 1 : 1) | 3840* 2160 ( 2 : 2 ) | 7680 * 2160 ( 4 : 2)
-
-  // 1.设计稿尺寸
-  let targetWidth = 1920;
-  let targetHeight = 1080;
-
-  let targetRatio = 16 / 9; // 宽高比率 （宽 / 高）
-
-  // 2.拿到当前设备（浏览器）的宽度
-  let currentWidth =
-    document.documentElement.clientWidth || document.body.clientWidth;
-  let currentHeight =
-    document.documentElement.clientHeight || document.body.clientHeight;
-  // 3.计算缩放比率(屏幕过宽，根据高度计算缩放比例)
-  let scaleRatio = currentWidth / targetWidth; // 参照宽度进行缩放（默认情况下）
-
-  // 当前宽高比例
-  let currentRatio = currentWidth / currentHeight;
-
-  if (currentRatio > targetRatio) {
-    scaleRatio = currentHeight / targetHeight; // 参照高度进行缩放（屏幕很宽的情况下）
-    document.body.style = `transform: scale(${scaleRatio}) translateX(-50%); left: 50%;`;
-  } else {
-    // 4.开始缩放网页
-    document.body.style = `transform: scale(${scaleRatio})`;
-  }
-</script>
-
 </html>
