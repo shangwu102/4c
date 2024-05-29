@@ -56,7 +56,6 @@
 </template>
 
 <script>
-import { delToken } from '@/utils/localStorage'
 
 export default {
   data () {
@@ -96,10 +95,7 @@ export default {
     },
     uploadMsg () {
     },
-    logout () {
-      delToken();
-      this.$router.push('/home'); // 修改退出后跳转的路径为登录页
-    },
+
   },
 };
 </script>

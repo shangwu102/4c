@@ -125,13 +125,13 @@ export default {
 
 <style scoped>
 .wraper {
-  text-align: center;
-  background: #ffffff;
+  /* text-align: center; */
+  /* background: #ffffff; */
   height: 64px;
-  font-size: 48px;
+  font-size: 30px;
   font-weight: bolder;
   letter-spacing: 7px;
-  margin-top: 7px;
+  /* margin-top: 7px; */
   display: flex;
   justify-content: center;
   overflow: hidden;

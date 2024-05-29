@@ -3,7 +3,7 @@ import { Message } from 'element-ui';
 import { getUserToken, getDoctorToken,getType } from '@/utils/localStorage';
 // 创建axios实例，将来对创建出来的实例，进行自定义配置，不会污染原始的axios实例
 const instance = axios.create({
-  baseURL: 'http://47.120.62.6:8080',
+  baseURL: 'https://hiwcq.com:8080',
   // timeout: 5000
 })
 

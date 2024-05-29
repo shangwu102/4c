@@ -2,8 +2,10 @@
   <div>
     <el-container style="height: 100vh;">
       <el-header>
-        <div>
-          <h2>医生管理系统</h2>
+        <div style="background-color: aqua;">
+          <h2>医生管理系统
+          </h2>
+          <ClockPage style="position: absolute; left: 87%; top: 2%; "></ClockPage>
         </div>
       </el-header>
       <el-container>
@@ -61,13 +63,15 @@
 </template>
 
 <script>
-import { delToken } from '@/utils/localStorage'
-
+import ClockPage from '@/components/ClockPage.vue'
 export default {
   data () {
     return {
       isCollapse: false,
     };
+  },
+  components:{
+    ClockPage
   },
   methods: {
     toggleMenu () {
@@ -111,10 +115,6 @@ export default {
       }
     },
     uploadMsg () { },
-    logout () {
-      delToken();
-      this.$router.push('/home'); // 修改退出后跳转的路径为登录页
-    },
   },
 };
 </script>
